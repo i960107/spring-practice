@@ -1,9 +1,34 @@
 package com.example.aop.aop;
 
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 @Aspect
 @Component
 public class TimerAop {
+    @Pointcut("execution(* com.example.aop.controller..*.*(..))")
+    private void pointCut() {
+    }
+
+    //Before, After 모두에서 Timer 공유할 수 있도록
+    @Pointcut("@annotation(com.example.aop.annotation.Timer)")
+    private void enableTimer() {
+
+    }
+
+    @Around("pointCut() && enableTimer()")
+    public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        Object result = joinPoint.proceed();
+
+        stopWatch.stop();
+
+        System.out.println("totaltime : "  + stopWatch.getTotalTimeSeconds());
+    }
 }
