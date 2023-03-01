@@ -4,12 +4,17 @@
 
 **/application.properties
 
+*/.gitignore
+
 HELP.md
-.gradle
-build/
+**/.gradle
+**/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+**/gradlew
+**/gradlew.bat
+**/settings.gradle
 
 ## linux ##
 .swp
@@ -44,3 +49,4 @@ out/
 
 ### VS Code ###
 .vscode/
+
